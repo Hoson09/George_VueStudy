@@ -1,4 +1,4 @@
-<a href="divtop">Vue 的入门 demo</a>
+<a href="#divtop">Vue 的入门 demo</a>
 
 # Vue.js的学习经验总结
 > 个人经验总结，或许不全不精确，欢迎交流经验，相互学习，相互提升。
