@@ -1,8 +1,9 @@
-[Vue 简介](#divtop1)
-[Vue 的入门 demo](#divtop2)
-
 # Vue.js的学习经验总结
 > 个人经验总结，或许不全不精确，欢迎交流经验，相互学习，相互提升。
+
+```目录：```
+#### 1. [Vue 简介](#divtop1)
+#### 2. [Vue 的入门 demo](#divtop2)
 
 ## Vue 简介
 <div id="divtop1"><div>
