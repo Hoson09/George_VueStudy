@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>filter案例</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{name}}</p>
+        <p>{{name}}转成大写：{{name|up}}</p>
+        <p>{{englishName}}转成小写:{{englishName|toLowCase}}</p>
+        <p>{{gender|toGender}}</p>
+        <div :class="englishName | toLowCase">{{englishName}}</div>
+        <div :class="name | up">{{name}}</div>
+    </div>
+    <script>
+        // 全局定义过滤器
+        Vue.filter('up', function(val) {
+            return val.toUpperCase(val);
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'huyi',
+                englishName: 'GEORGE',
+                gender: 1
+            },
+            filters: { //局部定义过滤器 定义Vue实例的过滤器 (filters 属性名一定不要写错)
+                toLowCase(val) {
+                    return val.toLowerCase();
+                },
+                toGender(val) {
+                    return val === 1 ? '男' : '女';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

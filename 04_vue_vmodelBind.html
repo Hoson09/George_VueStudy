@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>双向绑定的vmodel</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 设置了vmodel属性后，在修改这个标签的内容，那么也会影响到相应的模板中对应的属性值的内容 vmodel -->
+        <input type="text" v-model="name">
+        <hr>
+        <p>{{name}}</p>
+    </div>
+    <script>
+        //建立一个Vue实例 vm ,这个实例拥有Vue内部所有设定的属性,可以对这些属性进行get和set操作。比如vm.name => 'huyi',在如果set修改这个值的话，在view上的内容 也会随着改变。
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'huyi'
+            }
+        });
+    </script>
+</body>
+
+</html>

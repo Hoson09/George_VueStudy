@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>event</title>
+</head>
+
+<body>
+    <p onclick="alert(this.innerHTML)">1.行内绑定点击事件</p>
+    <p id="p1">2.通过addEventListener来绑定事件 onclick</p>
+    <div id="app">
+        <p onclick="console.log(this)">{{age}}</p>
+        <!-- vue 绑定事件 :
+          1.使用v-on指令，可以在行内直接执行操作vue实例属性的代码 (行内绑定事件的方法)
+          2.v-on直接绑定一个方法名字
+        -->
+        <p v-on:click="age+=1">{{age*2}}</p>
+        <p v-on:click="addAge">{{age*3}}</p>
+        <!-- 注意
+        因为vue事件绑定后，点击事件所执行的代码的运行环境是在vue内部的，所以不能直接运行console.log()等js全局变量的方法。
+        需要与你在vue内部设置的变量和方法结合来使用才行，直接使用js的全局变量的话可能会不识别。但是有些全局变量也是可以识别的
+        但是需要进行相关的处理，如下：$event就获取了这个点击事件的点击事件对象
+        -->
+        <p v-on:click="age += 1;name = $event.target.innerHTML">{{age*2}}++++{{name}}</p>
+        <hr>
+        <!-- @click === v-on:click -->
+        <p v-for="(item,index) in items" :key="index" @click="showItem(item)">{{item}}</p>
+    </div>
+    <script>
+        window.onload = function() {
+            document.getElementById('p1').addEventListener('click', function(e) {
+                alert(this.innerHTML);
+                console.log(e.target); //事件源对象 <p id="p1">2.通过addEventListener来绑定事件 onclick</p>
+            }, false)
+
+            // 第三种绑定事件的方式
+            // document.getElementById('p1').onclick = function(e) {
+            // }
+        }
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                age: 19,
+                name: '',
+                items: [1, 2, 3, 6, 7, 89, 5, 3]
+            },
+            methods: {
+                addAge(e) {
+                    console.log(e.target); //<p>57</p>
+                },
+                showItem(item) {
+                    console.log(item);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

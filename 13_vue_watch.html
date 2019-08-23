@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue watch</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{a}}</h1>
+        <h2>{{b}}</h2>
+        <h3>{{c}}</h3>
+    </div>
+    <script>
+        let vm = new Vue({
+            // el: '#app',
+            data: {
+                a: 1,
+                b: 2,
+                c: 3
+            },
+            watch: {
+                a: function(newVal, oldVal) {
+                    console.log('newVal:%d', newVal);
+                    console.log('oldVal:%d', oldVal);
+                }
+            }
+        });
+        vm.$mount('#app') //=== el:'#app' 这两个效果一样
+    </script>
+</body>
+
+</html>

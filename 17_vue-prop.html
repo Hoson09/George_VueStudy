@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>组件中html的属性 props</title>
+</head>
+
+<body>
+    <div id="app">
+        <log-show log="你好，应用启动了" level="消息"></log-show>
+        <log-show log="你好，应用出现错误" level="警告"></log-show>
+        <log-show :log="msg" level="消息"></log-show>
+        <kk-ll t="333" :a="70"></kk-ll>
+        <!-- 你没有声明t属性但是也会注入到你的模板的根dom元素上去 -->
+    </div>
+    <script>
+        //定义的局部组件
+        let LogShow = {
+            props: ['log', 'level'], //属性名也必须要小写才行,按照之前设置dom属性名的方式来就行。
+            template: `<p>{{level}} : {{log}}</p>`
+        }
+
+        //定义一个全局组件
+        Vue.component('kk-ll', {
+            props: {
+                a: {
+                    required: true,
+                    type: Number,
+                    validator: function(val) {
+                        return val > 10;
+                    }
+                },
+                b: {
+                    default: 10,
+                    type: Number
+                }
+            },
+            template: `<p>{{b}}--{{a}}</p>`
+        })
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'huyi'
+            },
+            components: {
+                'log-show': LogShow
+            }
+        });
+    </script>
+</body>
+
+</html>

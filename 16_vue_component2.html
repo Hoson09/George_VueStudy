@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue 局部组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <show></show>
+        <show></show>
+        <show></show>
+        <show></show>
+    </div>
+    <script>
+        let KK = { // 还可以在局部组件内部再定义一个局部组件,但是必须定义在父级局部组件之前。因为let声明的变量有暂时性死区
+            template: `<div>我是kk</div>` //设置局部组件的template模板。
+        }
+
+        let Show = { //这是局部组建
+            data: function() {
+                return {
+                    age: 19,
+                    name: 'huyi'
+                }
+            },
+            template: `<div>{{name}}-{{age}}--<kk></kk></div>`,
+            components: {
+                'kk': KK //要使用KK局部组件，要在components组件属性中对KK进行一个进行一个组件的绑定。
+            }
+        }
+        let vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: { //定义局部组件必须在components对象中设定一个与组件对应的键值对，且key必须是字符串形式的。因为这个key值对应的是dom标签的标签名
+                'show': Show
+            }
+        });
+    </script>
+</body>
+
+</html>

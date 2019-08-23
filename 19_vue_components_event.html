@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue的组件的事件</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-com :num="msg" v-on:my-event="handlerMyEvent"></my-com>
+    </div>
+    <script>
+        Vue.component('my-com', {
+            template: `<div>
+              <p @click="emitEvent">我是子组件</p>
+              <p>{{num}}</p>
+              </div>`,
+            methods: {
+                emitEvent() {
+                    this.$emit('my-event', 123); //这是子组件向父组件传值
+                }
+
+            },
+            props: ['num'] //这是父组件给子组件传值
+        })
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 123456
+            },
+            methods: {
+                handlerMyEvent(e) {
+                    console.log(e); //=>123
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

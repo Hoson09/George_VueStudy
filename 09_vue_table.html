@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <link href="https://cdn.bootcss.com/bulma/0.7.5/css/bulma.css" rel="stylesheet">
+    <title>table表格案例</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- vm是Vue的一个实例，给Vue添加的参数对象的所有的属性值，都可以被vm调用,
+        但是可以用vm.userList[0]=obj的方式给userList数组添加元素，
+        但是这样的添加方式不能被Vue实时监控并改变赋值，必须要刷新才能看到修改的值。
+        如果使用Vue的push()方法,就可以被Vue实时监控，并赋值。 -->
+        <input type="button" value="增加用户" onclick="vm.userList.push({age:19,name:'huyi',address:'陕西西安未央区'})">
+        <table class="table is-bordered is-striped is-hoverable">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>地址</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-if="userList.length > 0">
+                  <tr v-for="(item,index) in userList">
+                      <td>{{index + 1}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.age}}</td>
+                      <td>{{item.address}}</td>
+                  </tr>
+                </template>
+                <template v-else>
+                   <tr>
+                     <td colspan="4" style="text-align: center;">无数据</td>
+                  </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                userList: []
+            }
+        });
+    </script>
+</body>
+
+</html>

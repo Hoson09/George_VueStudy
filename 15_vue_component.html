@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue的组件化</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component v-for="(item,index) of 10" :key="index">{{item}}</my-component>
+    </div>
+    <script>
+        Vue.component('my-component', { // 这是全局注册的组件 在全局任何地方都可以使用 组件名必须小写加-的方式，如这个：my-component,这与dom标签的命名相似
+            data: function() { // 创建的Vue的根实例时，data可以是Object 也可以是Function，但是在变成组件扩展的时候，data必须是一个函数，而且要返回值，返回一个新的对象,否则报错。
+                return {
+                    age: 19,
+                    name: 'huyi'
+                }
+            },
+            template: `<div>
+              <p>{{age}}</p>
+              <p>{{name}}</p>
+              <slot></slot>
+              <hr>
+              <div>`
+        })
+        let vm = new Vue({
+            el: '#app',
+            data: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>slot 插槽</title>
+</head>
+
+<body>
+    <div id="app">
+        <kk>这里是父组件给子组件的插槽注入的内容
+            <h1>sssss</h1>
+        </kk>
+        <kk></kk>
+        <kk>
+            <!-- 组件还可以进行嵌套 -->
+            <ss></ss>
+        </kk>
+        <hr>
+        <h2>ss组件</h2>
+        <ss>
+            <p slot="header">我是头部插槽，父组件插入的</p>
+            <!-- template标签自身可以不生成标签内容，如果你有多个标签作为模板传入的话，可以使用template标签 -->
+            <template slot="footer">
+            <p>你好1{{name}}</p>
+            <p>你好2</p>
+            <p>你好3</p>
+          </template>
+        </ss>
+    </div>
+    <script>
+        Vue.component('kk', {
+            template: `<div>
+              <p>我是子组件kk的内容</p>
+              <slot>子组件的默认插槽的内容，父组件如果没有传入标签或者组件或者文字，就会显示当前文字</slot>
+            </div>`
+        });
+        Vue.component('ss', { //具名插槽  <slot name="header">header</slot>
+            template: `<div>
+              <p>这里是ss组件的内容</p>
+              <slot name="header">header</slot>
+              <hr>
+              <slot name="footer">footer</slot>
+            </div>`
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'huyi'
+            }
+        });
+
+        // 作用域插槽 ？？？
+    </script>
+</body>
+
+</html>

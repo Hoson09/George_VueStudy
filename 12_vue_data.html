@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue实例详解</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1 @click="$set($data.user,'tt','ssscccGeorge')">{{appName}}</h1>
+        <p v-for="(value,prop) in user" :key="prop">{{value}}---{{prop}}</p>
+        <input type="button" value="添加属性" @click="addProp">
+        <!-- 对于已经声明的对象user来说，改变属性值，vue可以动态监听到。
+          如果你要用vm.user.phone=123132的方法给user新增键值对的话，vue是监听不到的。
+          刷新后才能在view上显示，如果你要使用vue方法vm.$set(vm.user,'phone',123345)给user新增键值对的话，
+          vue是可以监听到的，新增完可以立即显示在view页面上 
+        第一种实现方法是在行内添加点击事件。
+        第二种实现方法是给input赋一个点击事件，然后出发Vue的methods中的方法
+        (因为在行内设置的点击事件，绑定或者模板时候默认都在所有的属性或者方法前面添加了Vue的实例作为前缀引用，
+        可以直接只写实例后的方法和属性也能正常运行，但是在Vue内部的函数中书写代码的时候，是不会有Vue的实例作为前缀的，
+        所以要把Vue实例写在前面才能更好的引用Vue实例的属性值和方法)-->
+    </div>
+    <script>
+        let myVue = Vue.extend({ //vue的扩展设定。
+            data: function(data) {
+                return {
+                    appName: 'Vue app 应用'
+                }
+            }
+        })
+        let vm = new myVue({
+            el: '#app',
+            data: {
+                user: {
+                    age: 19,
+                    name: 'huyi'
+                }
+            },
+            methods: {
+                addProp() {
+                    this.$set(this.user, 'kk', '123456');
+                    Vue.set(this.user, 'k3', '444'); //这两个方法是一样的 $代表Vue
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue的事件修饰符</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 因为冒泡，所以ul标签中的这个this指向ul标签本身 -->
+        <ul onclick="console.log(this)">
+            <!-- 如果要阻止冒泡的话，就需要事件修饰符 stop
+            使用这个stop修饰符后，在触发这个事件的时候就可以避免冒泡了。
+            right修饰符表示点击鼠标右键才会触发事件。stop和right组合起来的时候，
+            必须右键点击的时候才会触发事件且阻止冒泡，而点击左键的时候，不会触发事件但是会冒泡。-->
+            <li @click.stop.right="show(item)" v-for="(item, index) in getSortedItems" v-if="item >= 10" v-bind:key="index">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="(item, index) in getLargeNum" v-bind:key="index">{{item}}</li>
+        </ul>
+        <div onclick="console.log('222')">
+            <!-- 这个a链接可以进行href跳转，要阻止跳转的默认行为的话，就要使用修饰符 prevent -->
+            <a @click.prevent="" v-for="(item, index) in getLargeNum" v-bind:key="index" href="/01_vue_attrBind.html">{{item}}</a>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                items: [1, 2, 3, 10, 90, 12, 32]
+            },
+            computed: { //计算属性 该属性当普通的属性来用(是vm的实例属性)
+                getSortedItems() {
+                    let t = [...this.items];
+                    return t.sort((a, b) => a - b);
+                },
+                getLargeNum() {
+                    return this.items.filter(item => item > 10);
+                }
+            },
+            methods: {
+                show(item) {
+                    console.log(item);
+                    console.log('this:', this); //this指向当前点击的Vue实例。
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

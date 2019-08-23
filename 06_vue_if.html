@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>vue_if条件渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>v-if判断</h3>
+        <h1 v-if="ok">OK</h1>
+        <h1 v-else>NO</h1>
+        <h3>v-else-if条件渲染</h3>
+        <p v-if="A === 0">0</p>
+        <p v-else-if="A === 1">1</p>
+        <p v-else>Yes</p>
+        <h3>template 模板</h3>
+        <template v-if="ok">
+          <h2>标题</h2>
+          <p>内容1</p>
+          <p>内容2</p>
+          <p>内容3</p>
+        </template>
+        <template v-else>
+          <p>无数据</p>
+        </template>
+        <h3>优化处理</h3>
+        <!-- Vue认为相同的dom元素会进行重用 -->
+        <template v-if="A===1">
+          用户名：<input type="text" placeholder="输入用户名" v-model="name">
+        </template>
+        <template v-else> 
+          邮箱：<input type="text" placeholder="输入邮箱地址" v-model="name">
+        </template>
+        <hr>
+        <!-- 如果不想认识让dom重用的话，需要解除绑定v-model并添加key属性让两者区分开来 -->
+        <template v-if="A===1">
+          用户名：<input type="text" placeholder="输入用户名" key="d">
+        </template>
+        <template v-else> 
+          邮箱：<input type="text" placeholder="输入邮箱地址" key="f">
+        </template>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                ok: true,
+                A: 1,
+                name: ''
+
+            }
+        });
+    </script>
+</body>
+
+</html>

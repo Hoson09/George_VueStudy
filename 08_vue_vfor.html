@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>v-for</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- in和of都可以用 -->
+        <ul>
+            <li v-for="(item,index) in items" :key="index">{{item.name}}--{{item.age}}--{{index}}</li>
+        </ul>
+        <ul>
+            <li v-for="(item,index) of items" :key="index">{{item.name}}--{{item.age}}--{{index}}</li>
+        </ul>
+        <p v-for="(value,key,index) in user">{{key}}:{{value}}----{{index}}</p>
+        <h3>v-for和v-if配合使用</h3>
+        <h4>v-for比v-if的优先级要高一些，v-if必须在v-for中进行运行</h4>
+        <ul>
+            <li v-for="(item,index) in items" v-if="item.age > 18" :key="index">{{item.name}}--{{item.age}}--{{index}}</li>
+        </ul>
+        <h3>v-for 配合 template</h3>
+        <!-- template标签只是作为一个设置模板来使用，并不会产生任何dom标签 -->
+        <template v-for="(value,key,index) in user">
+          <h4>{{key}}</h4>
+          <p>{{value}}</p>
+          <p>{{index}}</p>
+        </template>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                items: [{
+                    age: 19,
+                    name: 'George'
+                }, {
+                    age: 18,
+                    name: 'huyi'
+                }, {
+                    age: 20,
+                    name: 'huyiGeorge'
+                }],
+                user: {
+                    age: 28,
+                    name: 'huyi',
+                    phone: '12345',
+                    qq: '123132'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

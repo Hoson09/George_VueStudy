@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <title>vue属性绑定</title>
+    <style>
+        .act {
+            background-color: #c09;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <span>{{name}}</span>
+        <p v-bind:id="pid" :num="num" :class="active">绑定属性</p>
+        <!-- 绑定还可以简写： v-bind: === :  -->
+        <p :class="{act:true,actived:isActive}">样式类绑定</p>
+        <p :class="[{act:isActive},errorClass]">样式类绑定</p>
+        <p :style="{backgroundColor:'blue','font-size':'18px',border:num+'px solid #ccc'}">内联样式的绑定</p>
+        <p :style="inlinestyle">内联样式的绑定第二种方式</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'huyi_george',
+                pid: 'niubi',
+                num: 19,
+                active: 'act',
+                isActive: true,
+                errorClass: 'txt-danger',
+                inlinestyle: {
+                    height: '80px',
+                    backgroundColor: 'yellow',
+                    'font-size': '64px'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
