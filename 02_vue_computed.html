@@ -29,7 +29,7 @@
                 age: 19,
                 date: Date.now(),
             },
-            computed: {
+            computed: { //计算属性的的属性名最终会成为data中的一个属性，对应的值是这个属性对应的函数的返回值。
                 getDate() {
                     let t = new Date(this.date);
                     let year = t.getFullYear();
